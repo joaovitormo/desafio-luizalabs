@@ -1,9 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Desafioluizalabs" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Desafioluizalabs" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">#57B660</item>
+        <item name="colorPrimaryVariant">#1ED760</item>
+        <item name="colorOnPrimary">#000000</item>
+
+        <item name="android:colorBackground">#121212</item>
+
+        <item name="colorSurface">#181414</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <item name="android:statusBarColor">#000000</item>
+        <item name="fontFamily">@font/rubik</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/Shape.Rounded</item>
     </style>
 
+
+    <style name="Shape.Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
     <style name="Theme.Desafioluizalabs" parent="Base.Theme.Desafioluizalabs" />
 </resources>
