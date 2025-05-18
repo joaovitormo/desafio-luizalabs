@@ -1,7 +1,15 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+val spotifyClientId = localProperties["SPOTIFY_CLIENT_ID"] as String
+
 
 android {
     namespace = "com.joaovitormo.desafio_luizalabs"
@@ -14,6 +22,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"$spotifyClientId\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding =true
+        buildConfig = true
     }
 }
 
@@ -52,4 +62,14 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.google.android.material:material:1.11.0")
+
+    implementation("androidx.browser:browser:1.5.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("com.spotify.android:auth:1.2.5")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+
 }
