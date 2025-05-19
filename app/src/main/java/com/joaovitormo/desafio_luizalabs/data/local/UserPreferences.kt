@@ -1,0 +1,16 @@
+package com.joaovitormo.desafio_luizalabs.data.local
+
+import android.content.Context
+
+class UserPreferences(context: Context) {
+
+    private val prefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+    fun saveDisplayName(name: String) {
+        prefs.edit().putString("display_name", name).apply()
+    }
+
+    fun getDisplayName(): String? {
+        return prefs.getString("display_name", null)
+    }
+}

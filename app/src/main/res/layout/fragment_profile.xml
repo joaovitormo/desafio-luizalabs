@@ -9,7 +9,7 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <ImageView
-        android:id="@+id/circularImageView"
+        android:id="@+id/imageProfile"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:src="@drawable/avatar"
@@ -20,8 +20,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textName"
         android:text="Nome"
         android:textSize="24dp"
+        android:paddingTop="15dp"
         android:textColor="@color/white"
         android:fontFamily="@font/rubik_bold" />
     <FrameLayout
