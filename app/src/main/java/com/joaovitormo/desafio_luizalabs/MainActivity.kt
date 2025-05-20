@@ -3,6 +3,7 @@ package com.joaovitormo.desafio_luizalabs
 import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -44,6 +45,18 @@ class MainActivity : AppCompatActivity() {
         )
         CoroutineScope(Dispatchers.IO).launch {
             repository.fetchAndSaveUserProfile()
+            repository.fetchAndStoreTopArtists()
+        }
+
+        lifecycleScope.launch {
+            val repository = SpotifyRepository(
+                api = RetrofitInstance.api,
+                tokenManager = TokenManager(this@MainActivity),
+                userPrefs = UserPreferences(this@MainActivity),
+                context = this@MainActivity
+            )
+
+            repository.fetchAndStoreTopArtists()
         }
     }
 }
