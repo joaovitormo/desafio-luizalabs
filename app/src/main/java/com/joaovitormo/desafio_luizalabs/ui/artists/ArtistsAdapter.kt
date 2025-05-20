@@ -1,42 +1,41 @@
 package com.joaovitormo.desafio_luizalabs.ui.artists
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.joaovitormo.desafio_luizalabs.databinding.ItemArtistBinding
 import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
 
 
-class ArtistsAdapter(
-    private var artists: List<TopArtistEntity>,
-    private val onClick: (TopArtistEntity) -> Unit
-) : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
-
-    inner class ArtistViewHolder(val binding: ItemArtistBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(artist: TopArtistEntity) {
-            binding.textArtistName.text = artist.name
-            Glide.with(binding.root.context)
-                .load(artist.imagePath)
-                .into(binding.imageview)
-            itemView.setOnClickListener { onClick(artist) }
-        }
-    }
+class ArtistsAdapter : PagingDataAdapter<TopArtistEntity, ArtistsAdapter.ArtistViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val binding = ItemArtistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ArtistViewHolder(binding)
     }
 
-    override fun getItemCount() = artists.size
-
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(artists[position])
+        val artist = getItem(position) ?: return
+        holder.bind(artist)
     }
 
-    fun updateData(newArtists: List<TopArtistEntity>) {
-        artists = newArtists
-        notifyDataSetChanged()
+    class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(artist: TopArtistEntity) {
+            binding.textArtistName.text = artist.name
+            Glide.with(binding.imageview.context)
+                .load(artist.imagePath)
+                .into(binding.imageview)
+        }
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TopArtistEntity>() {
+            override fun areItemsTheSame(oldItem: TopArtistEntity, newItem: TopArtistEntity) = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: TopArtistEntity, newItem: TopArtistEntity) = oldItem == newItem
+        }
     }
 }

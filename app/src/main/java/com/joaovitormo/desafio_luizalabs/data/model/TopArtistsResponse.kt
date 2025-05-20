@@ -1,7 +1,7 @@
 package com.joaovitormo.desafio_luizalabs.data.model
 
 data class TopArtistsResponse(
-    val items: List<ArtistItem>
+    val items: List<ArtistItem>,
 )
 
 data class ArtistItem(

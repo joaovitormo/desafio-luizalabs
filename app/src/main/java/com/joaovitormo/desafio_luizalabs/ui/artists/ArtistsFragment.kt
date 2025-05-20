@@ -1,79 +1,65 @@
 package com.joaovitormo.desafio_luizalabs.ui.artists
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.TopArtistDao
 import com.joaovitormo.desafio_luizalabs.databinding.FragmentArtistsBinding
-import java.io.File
+
 
 class ArtistsFragment : Fragment() {
+
     private var _binding: FragmentArtistsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ArtistsViewModel
-    private lateinit var adapter: ArtistsAdapter
+    private val viewModel: ArtistsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val adapter = ArtistsAdapter()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
-            .get(ArtistsViewModel::class.java)
+        binding.recyclerViewArtists.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewArtists.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = ArtistsLoadStateAdapter { adapter.retry() },
+            footer = ArtistsLoadStateAdapter { adapter.retry() }
+        )
 
-        setupRecyclerView()
-        observeViewModel()
-        viewModel.loadArtists()
-
-        val imageFile = File(requireContext().filesDir, "profile_image.jpg")
-        if (imageFile.exists()) {
-            Glide.with(this)
-                .load(imageFile)
-                .circleCrop()
-                .into(binding.imageProfile)
-        }
-    }
-
-    private fun setupRecyclerView() {
-        adapter = ArtistsAdapter(emptyList()) { artist ->
-            showArtistaDetails(artist.name) // Assumindo que TopArtistEntity tem o campo name
+        viewModel.profileImageFile.observe(viewLifecycleOwner) { file ->
+            file?.let {
+                Glide.with(this)
+                    .load(it)
+                    .circleCrop()
+                    .into(binding.imageProfile)
+            }
         }
 
-        binding.recyclerViewArtists.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            this.adapter = this@ArtistsFragment.adapter
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        }
-    }
 
-    private fun observeViewModel() {
-        viewModel.artists.observe(viewLifecycleOwner) { artists ->
-            adapter.updateData(artists)
+        viewModel.pagingData.observe(viewLifecycleOwner) { pagingData ->
+            adapter.submitData(lifecycle, pagingData)
         }
-    }
 
-    private fun showArtistaDetails(artista: String) {
-        Toast.makeText(
-            requireContext(),
-            "Artista selecionado: $artista",
-            Toast.LENGTH_SHORT
-        ).show()
+        adapter.addLoadStateListener { loadState ->
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.source.refresh as? LoadState.Error
+
+            errorState?.let {
+                Log.e("ArtistsFragment", "Erro no carregamento: ${it.error.message}")
+                Toast.makeText(requireContext(), "Erro: ${it.error.message}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroyView() {

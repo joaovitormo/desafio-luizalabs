@@ -1,5 +1,6 @@
 package com.joaovitormo.desafio_luizalabs.data.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,6 +11,12 @@ interface TopArtistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(artists: List<TopArtistEntity>)
 
+    @Query("SELECT count(*) FROM top_artists")
+    suspend fun getItemCount(): Int
+
     @Query("SELECT * FROM top_artists")
-    suspend fun getAll(): List<TopArtistEntity>
+    fun getPagedArtists(): PagingSource<Int, TopArtistEntity>
+
+    @Query("DELETE FROM top_artists")
+    suspend fun clearAll()
 }
