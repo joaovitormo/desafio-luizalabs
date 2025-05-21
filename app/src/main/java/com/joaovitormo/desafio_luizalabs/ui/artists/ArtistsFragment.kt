@@ -13,7 +13,14 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.joaovitormo.desafio_luizalabs.R
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
+import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.SpotifyRepository
 import com.joaovitormo.desafio_luizalabs.databinding.FragmentArtistsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ArtistsFragment : Fragment() {

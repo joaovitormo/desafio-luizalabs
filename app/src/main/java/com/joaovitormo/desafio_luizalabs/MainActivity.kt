@@ -33,15 +33,5 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
-
-        val repository = SpotifyRepository(
-            api = RetrofitInstance.api,
-            tokenManager = TokenManager(applicationContext),
-            userPrefs = UserPreferences(applicationContext),
-            context = applicationContext
-        )
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.fetchAndSaveUserProfile()
-        }
     }
 }

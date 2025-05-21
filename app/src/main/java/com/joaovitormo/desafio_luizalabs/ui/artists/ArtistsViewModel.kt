@@ -1,6 +1,7 @@
 package com.joaovitormo.desafio_luizalabs.ui.artists
 
 import android.app.Application
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +13,13 @@ import androidx.paging.cachedIn
 import androidx.paging.liveData
 import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
 import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
 import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.SpotifyRepository
 import com.joaovitormo.desafio_luizalabs.data.repository.TopArtistsRemoteMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 import java.io.File
 
@@ -32,11 +38,21 @@ class ArtistsViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun loadProfileImage() {
-        val imageFile = File(getApplication<Application>().filesDir, "profile_image.jpg")
-        if (imageFile.exists()) {
-            _profileImageFile.postValue(imageFile)
-        } else {
-            _profileImageFile.postValue(null)
+        val repository = SpotifyRepository(
+            api = RetrofitInstance.api,
+            tokenManager = TokenManager(context),
+            userPrefs = UserPreferences(context),
+            context = context
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.fetchAndSaveUserProfile()
+
+            val imageFile = File(getApplication<Application>().filesDir, "profile_image.jpg")
+            if (imageFile.exists()) {
+                _profileImageFile.postValue(imageFile)
+            } else {
+                _profileImageFile.postValue(null)
+            }
         }
     }
 
