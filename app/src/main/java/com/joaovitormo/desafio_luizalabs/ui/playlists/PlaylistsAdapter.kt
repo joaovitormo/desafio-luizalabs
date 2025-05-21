@@ -19,8 +19,9 @@ class PlaylistsAdapter : PagingDataAdapter<PlaylistEntity, PlaylistsAdapter.Play
     }
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
-        val playlist = getItem(position) ?: return
-        holder.bind(playlist)
+        val playlist = getItem(position)
+        if (playlist != null) holder.bind(playlist)
+
     }
 
     class PlaylistViewHolder(
