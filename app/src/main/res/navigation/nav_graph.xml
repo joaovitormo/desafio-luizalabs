@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.joaovitormo.desafio_luizalabs.ui.artists.ArtistsFragment"
+        android:name="com.joaovitormo.desafio_luizalabs.ui.playlists.PlaylistsFragment"
         android:label="Playlists" />
 
     <fragment

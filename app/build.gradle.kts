@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.core.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -89,6 +90,17 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
 
     implementation("androidx.paging:paging-runtime:3.3.0")
+
+
+    testImplementation("io.mockk:mockk:1.13.5")
+
+    testImplementation("junit:junit:4.13.2")
+
+
+    testImplementation("org.robolectric:robolectric:4.10.3")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("androidx.test:runner:1.5.2")
+    testImplementation("io.mockk:mockk:1.13.5")
 
 
 }
