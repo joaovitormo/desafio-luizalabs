@@ -68,25 +68,4 @@ class SpotifyRepository(
         }
     }
 
-    suspend fun fetchAndStoreTopArtists() {
-        val token = tokenManager.getAccessToken() ?: return
-        val bearer = "Bearer $token"
-        val response = api.getTopArtists(bearer)
-
-        if (response.isSuccessful) {
-            val artists = response.body()?.items ?: return
-            val dao = AppDatabase.getInstance(context).topArtistDao()
-
-            val entities = artists.mapNotNull { artist ->
-                val imageUrl = artist.images.firstOrNull()?.url ?: return@mapNotNull null
-                val localImagePath = downloadAndSaveImage(context, imageUrl, artist.id) ?: return@mapNotNull null
-                TopArtistEntity(id = artist.id, name = artist.name, imagePath = localImagePath)
-            }
-
-            dao.insertAll(entities)
-
-        } else {
-            Log.e("SpotifyRepository", "Erro: ${response.code()} - ${response.message()}")
-        }
-    }
 }

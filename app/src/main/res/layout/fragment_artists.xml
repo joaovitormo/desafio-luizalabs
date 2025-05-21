@@ -34,8 +34,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewArtists"
         android:layout_width="match_parent"
+        android:scrollbars="vertical"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:scrollbars="vertical"/>
+        android:padding="5dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.joaovitormo.desafio_luizalabs.R
 import com.joaovitormo.desafio_luizalabs.databinding.FragmentArtistsBinding
 
 
@@ -21,7 +23,15 @@ class ArtistsFragment : Fragment() {
 
     private val viewModel: ArtistsViewModel by viewModels()
 
-    private val adapter = ArtistsAdapter()
+    private val adapter = ArtistsAdapter { artist ->
+        val bundle = Bundle().apply {
+            putString("artistName", artist.name)
+            putString("artistImage", artist.imagePath)
+            putString("artistId", artist.id)
+        }
+        findNavController().navigate(R.id.action_homeFragment_to_artistDetailFragment, bundle)
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentArtistsBinding.inflate(inflater, container, false)

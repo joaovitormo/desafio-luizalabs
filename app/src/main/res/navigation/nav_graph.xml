@@ -7,7 +7,12 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.joaovitormo.desafio_luizalabs.ui.artists.ArtistsFragment"
-        android:label="Artistas" />
+        android:label="Artistas">
+
+        <action
+            android:id="@+id/action_homeFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -18,4 +23,10 @@
         android:id="@+id/profileFragment"
         android:name="com.joaovitormo.desafio_luizalabs.ui.profile.ProfileFragment"
         android:label="Perfil" />
+
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.joaovitormo.desafio_luizalabs.ui.artistDetail.ArtistDetailFragment"
+        android:label="Detalhe do Artista" />
+
 </navigation>

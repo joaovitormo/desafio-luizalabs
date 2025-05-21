@@ -11,11 +11,13 @@ import com.joaovitormo.desafio_luizalabs.databinding.ItemArtistBinding
 import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
 
 
-class ArtistsAdapter : PagingDataAdapter<TopArtistEntity, ArtistsAdapter.ArtistViewHolder>(DIFF_CALLBACK) {
+class ArtistsAdapter(
+    private val onItemClick: (TopArtistEntity) -> Unit
+) : PagingDataAdapter<TopArtistEntity, ArtistsAdapter.ArtistViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val binding = ItemArtistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ArtistViewHolder(binding)
+        return ArtistViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
@@ -23,12 +25,20 @@ class ArtistsAdapter : PagingDataAdapter<TopArtistEntity, ArtistsAdapter.ArtistV
         holder.bind(artist)
     }
 
-    class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ArtistViewHolder(
+        private val binding: ItemArtistBinding,
+        private val onItemClick: (TopArtistEntity) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(artist: TopArtistEntity) {
             binding.textArtistName.text = artist.name
             Glide.with(binding.imageview.context)
                 .load(artist.imagePath)
                 .into(binding.imageview)
+
+            binding.root.setOnClickListener {
+                onItemClick(artist)
+            }
         }
     }
 
@@ -39,3 +49,4 @@ class ArtistsAdapter : PagingDataAdapter<TopArtistEntity, ArtistsAdapter.ArtistV
         }
     }
 }
+
