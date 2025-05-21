@@ -26,7 +26,7 @@ class PlaylistsFragment : Fragment() {
     private var _binding: FragmentPlaylistsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: PlaylistsViewModel
+    private val viewModel: PlaylistsViewModel by viewModels()
 
     private lateinit var adapter : PlaylistsAdapter
 
@@ -43,14 +43,7 @@ class PlaylistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val context = requireContext().applicationContext
-        val database = AppDatabase.getInstance(context)
-        val tokenManager = TokenManager(context)
-        val userPreferences = UserPreferences(context)
-        val repository = SpotifyRepository(RetrofitInstance.api, tokenManager, userPreferences, context)
-
-        val factory = PlaylistsViewModelFactory(repository, tokenManager, userPreferences, database, context)
-        viewModel = ViewModelProvider(this, factory)[PlaylistsViewModel::class.java]
+        adapter = PlaylistsAdapter()
 
         adapter = PlaylistsAdapter()
         binding.recyclerViewPlaylists.layoutManager = LinearLayoutManager(requireContext())

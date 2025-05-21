@@ -29,16 +29,18 @@ import android.content.Context
 import androidx.lifecycle.*
 
 
-class PlaylistsViewModel(
-    private val repository: SpotifyRepository,
-    private val tokenManager: TokenManager,
-    private val userPreferences: UserPreferences,
-    private val database: AppDatabase,
-    private val context: Context
-) : ViewModel() {
+class PlaylistsViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val context = application.applicationContext
+    private val database = AppDatabase.getInstance(context)
+    private val tokenManager = TokenManager(context)
+    private val api = RetrofitInstance.api
+    private val userPreferences = UserPreferences(context)
 
     val token = tokenManager.getAccessToken()
     val userId = userPreferences.getUserId()
+
+    private val repository = SpotifyRepository(api, tokenManager,userPreferences, context)
 
     private val _profileImageFile = MutableLiveData<File?>()
     val profileImageFile: LiveData<File?> get() = _profileImageFile
