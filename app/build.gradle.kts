@@ -13,6 +13,7 @@ if (localPropertiesFile.exists()) {
     localProperties.load(localPropertiesFile.inputStream())
 }
 val spotifyClientId = localProperties["SPOTIFY_CLIENT_ID"] as String
+val spotifyRedirectUri = localProperties["SPOTIFY_REDIRECT_URI"] as String
 
 
 android {
@@ -27,6 +28,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"$spotifyClientId\"")
+        buildConfigField("String", "SPOTIFY_REDIRECT_URI", "\"$spotifyRedirectUri\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

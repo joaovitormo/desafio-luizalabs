@@ -15,7 +15,7 @@ class SpotifyAuthRepository(
 ) {
     object SpotifyAuthConfig {
         const val CLIENT_ID = BuildConfig.SPOTIFY_CLIENT_ID
-        const val REDIRECT_URI = "spotify-test://auth"
+        const val REDIRECT_URI = BuildConfig.SPOTIFY_REDIRECT_URI
         const val AUTH_URL = "https://accounts.spotify.com/authorize"
         val SCOPES = listOf("user-read-email", "user-read-private", "user-library-read", "user-top-read", "playlist-modify-public", "playlist-modify-private", "playlist-read-private")
         const val RESPONSE_TYPE = "code"
