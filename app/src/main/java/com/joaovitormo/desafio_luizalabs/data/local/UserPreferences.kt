@@ -21,4 +21,8 @@ class UserPreferences(context: Context) {
     fun getUserId(): String? {
         return prefs.getString("user_id", null)
     }
+
+    fun clearUserData() {
+        return prefs.edit().clear().apply()
+    }
 }

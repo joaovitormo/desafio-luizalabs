@@ -51,4 +51,8 @@ class TokenManager(context: Context) {
         return token != null && System.currentTimeMillis() < expiry
     }
 
+    fun clearTokens() {
+        prefs.edit().clear().apply()
+    }
+
 }
