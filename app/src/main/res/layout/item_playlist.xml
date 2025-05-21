@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginEnd="20dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/imageview"
+        android:src="@drawable/playlist_without_image"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:padding="5dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textPlaylistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:text="Playlist"
+            android:fontFamily="@font/rubik_regular"
+            />
+        <TextView
+            android:id="@+id/textPlaylistOwnerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:text="Owner"
+            android:fontFamily="@font/rubik_regular"
+            />
+    </LinearLayout>
+
+</LinearLayout>

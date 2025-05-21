@@ -6,6 +6,8 @@ import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
 import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
 import com.joaovitormo.desafio_luizalabs.data.local.UserPreferences
 import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.model.CreatePlaylistBody
+import com.joaovitormo.desafio_luizalabs.data.model.PlaylistResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -29,6 +31,7 @@ class SpotifyRepository(
             val profile = response.body() ?: return
 
             profile.display_name?.let { userPrefs.saveDisplayName(it) }
+            profile.id?.let { userPrefs.saveUserId(it) }
 
 
             val imageUrl = profile.images?.firstOrNull { it.height == 300 }?.url
@@ -66,6 +69,14 @@ class SpotifyRepository(
                 null
             }
         }
+    }
+
+    suspend fun createPlaylist(
+        token: String,
+        userId: String,
+        body: CreatePlaylistBody
+    ): PlaylistResponse {
+        return api.createPlaylist(token, userId, body)
     }
 
 }
