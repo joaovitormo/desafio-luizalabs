@@ -7,10 +7,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.joaovitormo.desafio_luizalabs.databinding.ActivityMainBinding
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.local.UserPreferences
-import com.joaovitormo.desafio_luizalabs.data.remote.RetrofitInstance
-import com.joaovitormo.desafio_luizalabs.data.remote.SpotifyRepository
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
+import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.SpotifyRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

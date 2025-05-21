@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.remote
+package com.joaovitormo.desafio_luizalabs.data.repository
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
@@ -6,9 +6,10 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.joaovitormo.desafio_luizalabs.data.local.AlbumEntity
-import com.joaovitormo.desafio_luizalabs.data.local.AlbumsRemoteKeys
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.entity.AlbumEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.AlbumsRemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.remote.api.SpotifyApiService
 
 @OptIn(ExperimentalPagingApi::class)
 class AlbumsRemoteMediator(

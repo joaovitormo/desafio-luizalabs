@@ -1,6 +1,5 @@
 package com.joaovitormo.desafio_luizalabs.ui.artists
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.joaovitormo.desafio_luizalabs.databinding.ItemArtistBinding
-import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.TopArtistEntity
 
 
 class ArtistsAdapter(

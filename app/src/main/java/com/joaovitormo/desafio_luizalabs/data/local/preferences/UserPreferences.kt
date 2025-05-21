@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.local
+package com.joaovitormo.desafio_luizalabs.data.local.preferences
 
 import android.content.Context
 

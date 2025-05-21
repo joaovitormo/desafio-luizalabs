@@ -1,10 +1,11 @@
-package com.joaovitormo.desafio_luizalabs.data.local
+package com.joaovitormo.desafio_luizalabs.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistEntity
 
 @Dao
 interface PlaylistsDao {

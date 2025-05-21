@@ -10,10 +10,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.remote.RetrofitInstance
-import com.joaovitormo.desafio_luizalabs.data.remote.TopArtistsRemoteMediator
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.TopArtistsRemoteMediator
 
 import java.io.File
 

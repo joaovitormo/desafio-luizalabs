@@ -8,9 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
+import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.SpotifyRepository
 import com.joaovitormo.desafio_luizalabs.databinding.FragmentPlaylistsBinding
 import com.joaovitormo.desafio_luizalabs.ui.addPlaylist.AddPlaylistBottomSheet
 
@@ -20,7 +26,7 @@ class PlaylistsFragment : Fragment() {
     private var _binding: FragmentPlaylistsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: PlaylistsViewModel by viewModels()
+    private lateinit var viewModel: PlaylistsViewModel
 
     private lateinit var adapter : PlaylistsAdapter
 
@@ -36,6 +42,15 @@ class PlaylistsFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val context = requireContext().applicationContext
+        val database = AppDatabase.getInstance(context)
+        val tokenManager = TokenManager(context)
+        val userPreferences = UserPreferences(context)
+        val repository = SpotifyRepository(RetrofitInstance.api, tokenManager, userPreferences, context)
+
+        val factory = PlaylistsViewModelFactory(repository, tokenManager, userPreferences, database, context)
+        viewModel = ViewModelProvider(this, factory)[PlaylistsViewModel::class.java]
 
         adapter = PlaylistsAdapter()
         binding.recyclerViewPlaylists.layoutManager = LinearLayoutManager(requireContext())

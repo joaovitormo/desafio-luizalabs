@@ -1,6 +1,5 @@
 package com.joaovitormo.desafio_luizalabs.ui.playlists
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.joaovitormo.desafio_luizalabs.R
-import com.joaovitormo.desafio_luizalabs.data.local.PlaylistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistEntity
 import com.joaovitormo.desafio_luizalabs.databinding.ItemPlaylistBinding
 
 class PlaylistsAdapter : PagingDataAdapter<PlaylistEntity, PlaylistsAdapter.PlaylistViewHolder>(DIFF_CALLBACK) {

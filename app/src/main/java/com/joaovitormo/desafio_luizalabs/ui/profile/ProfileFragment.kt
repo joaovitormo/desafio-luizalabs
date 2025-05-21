@@ -6,14 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.remote.SpotifyRepository
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
 import com.joaovitormo.desafio_luizalabs.databinding.FragmentProfileBinding
-import kotlinx.coroutines.launch
 import com.bumptech.glide.Glide
-import com.joaovitormo.desafio_luizalabs.data.local.UserPreferences
-import com.joaovitormo.desafio_luizalabs.data.remote.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
 import com.joaovitormo.desafio_luizalabs.ui.login.LoginActivity
 import java.io.File
 

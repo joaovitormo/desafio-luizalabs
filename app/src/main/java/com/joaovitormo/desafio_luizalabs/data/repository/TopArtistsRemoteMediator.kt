@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.remote
+package com.joaovitormo.desafio_luizalabs.data.repository
 
 import android.content.Context
 import android.util.Log
@@ -7,16 +7,15 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.RemoteKeys
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.local.TopArtistDao
-import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.entity.RemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.entity.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.remote.api.SpotifyApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import retrofit2.HttpException
 import java.io.File
 
 @OptIn(ExperimentalPagingApi::class)

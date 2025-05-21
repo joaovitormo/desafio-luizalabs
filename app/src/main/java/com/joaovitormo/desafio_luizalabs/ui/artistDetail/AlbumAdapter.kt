@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.joaovitormo.desafio_luizalabs.data.local.AlbumEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.AlbumEntity
 import com.joaovitormo.desafio_luizalabs.databinding.ItemAlbumBinding
 
 class AlbumsAdapter : PagingDataAdapter<AlbumEntity, AlbumsAdapter.AlbumViewHolder>(ALBUM_COMPARATOR) {

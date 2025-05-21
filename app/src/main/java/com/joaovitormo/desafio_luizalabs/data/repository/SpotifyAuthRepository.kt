@@ -2,10 +2,10 @@ package com.joaovitormo.desafio_luizalabs.data.repository
 
 import android.content.Context
 import android.net.Uri
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
 import com.joaovitormo.desafio_luizalabs.util.PKCEUtil
 import com.joaovitormo.desafio_luizalabs.BuildConfig
-import com.joaovitormo.desafio_luizalabs.data.remote.SpotifyAuthApi
+import com.joaovitormo.desafio_luizalabs.data.remote.api.SpotifyAuthApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

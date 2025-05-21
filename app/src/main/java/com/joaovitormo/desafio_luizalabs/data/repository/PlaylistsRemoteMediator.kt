@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.remote
+package com.joaovitormo.desafio_luizalabs.data.repository
 
 
 import android.content.Context
@@ -8,10 +8,11 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.PlaylistEntity
-import com.joaovitormo.desafio_luizalabs.data.local.PlaylistsRemoteKeys
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistsRemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.remote.api.SpotifyApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.remote
+package com.joaovitormo.desafio_luizalabs.data.remote.api
 
 import com.joaovitormo.desafio_luizalabs.data.model.TokenResponse
 import retrofit2.http.*

@@ -12,32 +12,33 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.PlaylistEntity
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.local.UserPreferences
+import com.joaovitormo.desafio_luizalabs.data.local.db.AppDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
 import com.joaovitormo.desafio_luizalabs.data.model.CreatePlaylistBody
-import com.joaovitormo.desafio_luizalabs.data.remote.PlaylistsRemoteMediator
-import com.joaovitormo.desafio_luizalabs.data.remote.RetrofitInstance
-import com.joaovitormo.desafio_luizalabs.data.remote.SpotifyRepository
+import com.joaovitormo.desafio_luizalabs.data.repository.PlaylistsRemoteMediator
+import com.joaovitormo.desafio_luizalabs.data.remote.api.RetrofitInstance
+import com.joaovitormo.desafio_luizalabs.data.repository.SpotifyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class PlaylistsViewModel(application: Application) : AndroidViewModel(application) {
+import android.content.Context
+import androidx.lifecycle.*
 
-    private val context = application.applicationContext
-    private val database = AppDatabase.getInstance(context)
-    private val tokenManager = TokenManager(context)
-    private val api = RetrofitInstance.api
-    private val userPreferences = UserPreferences(context)
+
+class PlaylistsViewModel(
+    private val repository: SpotifyRepository,
+    private val tokenManager: TokenManager,
+    private val userPreferences: UserPreferences,
+    private val database: AppDatabase,
+    private val context: Context
+) : ViewModel() {
 
     val token = tokenManager.getAccessToken()
     val userId = userPreferences.getUserId()
-
-    private val repository = SpotifyRepository(api, tokenManager,userPreferences, context)
-
 
     private val _profileImageFile = MutableLiveData<File?>()
     val profileImageFile: LiveData<File?> get() = _profileImageFile
@@ -53,7 +54,7 @@ class PlaylistsViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     private fun loadProfileImage() {
-        val imageFile = File(getApplication<Application>().filesDir, "profile_image.jpg")
+        val imageFile = File(context.filesDir, "profile_image.jpg")
         if (imageFile.exists()) {
             _profileImageFile.postValue(imageFile)
         } else {
@@ -65,7 +66,12 @@ class PlaylistsViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadPlaylists() {
         val pager = Pager(
             config = PagingConfig(pageSize = 20),
-            remoteMediator = PlaylistsRemoteMediator(api, tokenManager, database, context),
+            remoteMediator = PlaylistsRemoteMediator(
+                RetrofitInstance.api,
+                tokenManager,
+                database,
+                context
+            ),
             pagingSourceFactory = {
                 database.playlistsDao().getPagedPlaylists()
             }

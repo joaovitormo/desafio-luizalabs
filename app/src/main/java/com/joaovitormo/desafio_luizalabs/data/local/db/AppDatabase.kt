@@ -1,9 +1,21 @@
-package com.joaovitormo.desafio_luizalabs.data.local
+package com.joaovitormo.desafio_luizalabs.data.local.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.joaovitormo.desafio_luizalabs.data.local.entity.AlbumEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.AlbumsRemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.entity.PlaylistsRemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.entity.RemoteKeys
+import com.joaovitormo.desafio_luizalabs.data.local.entity.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.dao.AlbumsDao
+import com.joaovitormo.desafio_luizalabs.data.local.dao.AlbumsRemoteKeysDao
+import com.joaovitormo.desafio_luizalabs.data.local.dao.PlaylistsDao
+import com.joaovitormo.desafio_luizalabs.data.local.dao.PlaylistsRemoteKeysDao
+import com.joaovitormo.desafio_luizalabs.data.local.dao.RemoteKeysDao
+import com.joaovitormo.desafio_luizalabs.data.local.dao.TopArtistDao
 
 @Database(entities = [TopArtistEntity::class, RemoteKeys::class, AlbumEntity::class, AlbumsRemoteKeys::class, PlaylistEntity::class, PlaylistsRemoteKeys::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {

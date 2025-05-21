@@ -1,13 +1,12 @@
-package com.joaovitormo.desafio_luizalabs.data.remote
+package com.joaovitormo.desafio_luizalabs.data.repository
 
 import android.content.Context
 import android.util.Log
-import com.joaovitormo.desafio_luizalabs.data.local.AppDatabase
-import com.joaovitormo.desafio_luizalabs.data.local.TokenManager
-import com.joaovitormo.desafio_luizalabs.data.local.UserPreferences
-import com.joaovitormo.desafio_luizalabs.data.local.TopArtistEntity
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.TokenManager
+import com.joaovitormo.desafio_luizalabs.data.local.preferences.UserPreferences
 import com.joaovitormo.desafio_luizalabs.data.model.CreatePlaylistBody
 import com.joaovitormo.desafio_luizalabs.data.model.PlaylistResponse
+import com.joaovitormo.desafio_luizalabs.data.remote.api.SpotifyApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient

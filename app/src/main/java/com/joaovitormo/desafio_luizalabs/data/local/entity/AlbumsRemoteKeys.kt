@@ -1,4 +1,4 @@
-package com.joaovitormo.desafio_luizalabs.data.local
+package com.joaovitormo.desafio_luizalabs.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
